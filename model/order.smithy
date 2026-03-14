@@ -1,91 +1,41 @@
-$version: "2"
+$version: "2.0"
 
 namespace example.fullfilment
 
-/// Provides weather forecasts.
-@paginated(inputToken: "nextToken", outputToken: "nextToken", pageSize: "pageSize")
-service Fullfilment {
-    version: "2026-03-01"
-    resources: [
-        Order
-    ]
-    operations: [
-        // FullFillOrder
-    ]
+enum OrderStatus {
+    PENDING
+    FULLFILLED
+    BACKORDERED
 }
 
-resource Order {
-    identifiers: {
-        orderId: UUIDString
-    }
-    properties: {
-        customerId: CustomerId
-        createdAt: CreatedAt
-        items: Items
-    }
-    create: CreateOrder
-}
-
-operation CreateOrder {
-    input: orderInput
-
-    output := for Order {
-        @required
-        $orderId
-
-        @required
-        $customerId
-
-        @required
-        $createdAt
-
-        @required
-        $items
-    }
-}
-
-timestamp CreatedAt
-
-@pattern("^[A-Za-z0-9 ]+$")
-string UUIDString
-
-@pattern("^[A-Za-z0-9 ]+$")
-string CustomerId
-
-list Items {
-    member: Item
-}
-
-structure orderInput {
-    @required
-    orderId: UUIDString
-}
-
-@length(min: 1, max: 2)
-list createOrders {
-    member: orderInput
-}
-
-structure Item {
+structure Order {
     @required
     orderId: UUIDString
 
     @required
-    sku: SKU
+    clienId: String
+
+    @required
+    status: OrderStatus
+
+    createdAt: Timestamp
+}
+
+list Orders {
+    member: Order
+}
+
+structure orderItem {
+    @required
+    sku: String
 
     @required
     quantity: Integer
+
+    @required
+    unitPrice: Integer
 }
 
-@pattern("^[A-Za-z0-9 ]+$")
-string SKU
-
-@error("client")
-@retryable
-@httpError(429)
-structure ThrottlingError {}
-
-@error("server")
-@retryable
-@httpError(503)
-structure ServiceUnavailableError {}
+@length(min: 1, max: 128)
+@pattern("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$")
+string UUIDString
