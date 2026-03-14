@@ -10,27 +10,82 @@ service Fullfilment {
         Order
     ]
     operations: [
-       // FullFillOrder
+        // FullFillOrder
     ]
 }
 
-resource Order{
-    identifiers: {OrderId}
-    properties: {CustomerId,CreatedAt}
-    read:GetOrder
-    list:ListOrders
-    resources: [Items]
+resource Order {
+    identifiers: {
+        orderId: UUIDString
+    }
+    properties: {
+        customerId: CustomerId
+        createdAt: CreatedAt
+        items: Items
+    }
+    create: CreateOrder
 }
+
+operation CreateOrder {
+    input: orderInput
+
+    output := for Order {
+        @required
+        $orderId
+
+        @required
+        $customerId
+
+        @required
+        $createdAt
+
+        @required
+        $items
+    }
+}
+
+timestamp CreatedAt
 
 @pattern("^[A-Za-z0-9 ]+$")
-string OrderId
+string UUIDString
 
-list Items{
-    member:Item
+@pattern("^[A-Za-z0-9 ]+$")
+string CustomerId
+
+list Items {
+    member: Item
 }
 
-resource Item{
-    identifiers: {SKU}
+structure orderInput {
+    @required
+    orderId: UUIDString
 }
+
+@length(min: 1, max: 2)
+list createOrders {
+    member: orderInput
+}
+
+structure Item {
+    @required
+    orderId: UUIDString
+
+    @required
+    sku: SKU
+
+    @required
+    quantity: Integer
+}
+
 @pattern("^[A-Za-z0-9 ]+$")
 string SKU
+
+@error("client")
+@retryable
+@httpError(429)
+structure ThrottlingError {}
+
+@error("server")
+@retryable
+@httpError(503)
+structure ServiceUnavailableError {}
