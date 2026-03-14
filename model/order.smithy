@@ -18,7 +18,7 @@ structure Order {
     @required
     status: OrderStatus
 
-    createdAt: Timestamp
+    createdAt: CreatedAt
 }
 
 list Orders {
@@ -43,3 +43,5 @@ list orderItems {
 @length(min: 1, max: 128)
 @pattern("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$")
 string UUIDString
+
+timestamp CreatedAt
