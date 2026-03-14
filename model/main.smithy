@@ -44,8 +44,6 @@ operation CreateOrder {
     }
 }
 
-timestamp CreatedAt
-
 @pattern("^[A-Za-z0-9 ]+$")
 string CustomerId
 
