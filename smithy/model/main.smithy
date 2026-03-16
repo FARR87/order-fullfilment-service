@@ -2,9 +2,10 @@ $version: "2"
 
 namespace com.fullfilment
 
+use aws.protocols#restJson1
 use smithy.framework#ValidationException
 
-/// Provides weather forecasts.
+@restJson1
 @paginated(inputToken: "nextToken", outputToken: "nextToken", pageSize: "pageSize")
 service Fullfilment {
     version: "2026-03-01"
@@ -16,6 +17,9 @@ service Fullfilment {
     ]
     errors: [
         ValidationException
+        ServiceError
+        ServiceUnavailableError
+        ThrottlingError
     ]
 }
 
@@ -35,3 +39,8 @@ structure ThrottlingError {}
 @retryable
 @httpError(503)
 structure ServiceUnavailableError {}
+
+@error("server")
+@retryable
+@httpError(500)
+structure ServiceError {}

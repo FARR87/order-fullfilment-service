@@ -77,6 +77,10 @@ operation GetOrder {
         @required
         $items
     }
+
+    errors: [
+        OrderNotFound
+    ]
 }
 
 structure orderItem {
