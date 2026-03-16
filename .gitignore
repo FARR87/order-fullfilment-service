@@ -2,3 +2,6 @@
 *.env
 */yarn.lock
 */node_modules
+
+client/sdk
+server/ssdk
