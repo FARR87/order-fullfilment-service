@@ -3,5 +3,5 @@ help:  ## Display this help
 
 clean: ## Clean all build artifacts of this project
 	@echo Cleaning build Directories...
-	rm -rf build/ */build/ */dist */node_modules client/sdk server/ssdk app/.next
+	rm -rf build/ */build/ */dist */node_modules client/sdk server/ssdk app/.next server/yarn.lock
 	@echo Cleaning complete.
