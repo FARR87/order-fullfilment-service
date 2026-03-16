@@ -1,6 +1,6 @@
 $version: "2.0"
 
-namespace example.fullfilment
+namespace com.fullfilment
 
 enum OrderStatus {
     PENDING
@@ -59,6 +59,7 @@ operation ListOrders {}
 @http(method: "GET", uri: "/order/{orderId}")
 operation GetOrder {
     input := for Order {
+        @httpLabel
         @required
         $orderId
     }

@@ -1,6 +1,6 @@
 $version: "2"
 
-namespace example.fullfilment
+namespace com.fullfilment
 
 use smithy.framework#ValidationException
 
