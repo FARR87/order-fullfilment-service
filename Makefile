@@ -34,8 +34,12 @@ build-client: build-smithy ## Set up and build the generated client
 	cd client/sdk; yarn && yarn build
 	@echo Finished building client
 
-build: build-server build-client 
+build: build-server build-client ##Build server and client 
+
 dev-server: build-ssdk ## Run the server in development-mode
 	cd server; yarn && yarn dev
+
+
+
 run-server: build-server ## Run the server
 	cd server; yarn start
