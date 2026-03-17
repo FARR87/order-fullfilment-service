@@ -2,10 +2,12 @@ import { getFullfilmentServiceHandler } from "@com.example/orders-fullfilment-se
 import { IncomingMessage, ServerResponse, createServer } from "http";
 import { convertRequest, writeResponse } from "@aws-smithy/server-node";
 import { OrderFullFilment } from "./OrderFullfilment";
+import { default as Orders } from "./database/models/order"
 import dotenv from "dotenv";
-
+import { default as db } from "./database"
 //get EnvVars
 dotenv.config();
+const serviceName = process.env.SERVICE_NAME
 // Instantiate our coffee service implementation
 const OrderFullFilmentService = new OrderFullFilment();
 // Create a service handler using our coffee service
@@ -28,9 +30,9 @@ const server = createServer(async function (
     return writeResponse(httpResponse, res);
 });
 
-const port = process.env.SERVICE_PORT || 3300;
+const port = process.env.SERVICE_PORT
 server.listen(port);
-console.log(`Started server on port ${port}...`);
+console.log(`Started server on port ${port}...  for service:${serviceName}`);
 
 // Asynchronously handle orders as they come in
 //coffeeService.handleOrders(ctx)
