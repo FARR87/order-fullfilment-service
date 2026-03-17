@@ -3,7 +3,7 @@ import { IncomingMessage, ServerResponse, createServer } from "http";
 import { convertRequest, writeResponse } from "@aws-smithy/server-node";
 import { OrderFullFilment } from "./OrderFullfilment";
 import dotenv from "dotenv";
-import { default as sequelize } from "./database"
+import { sequelize, models } from "./database"
 //get EnvVars
 dotenv.config();
 const serviceName = process.env.SERVICE_NAME
@@ -16,7 +16,7 @@ const ctx = { orders: new Map(), queue: [] };
 
 
 
-//DB integration Test
+//Assert Connection
 async function assertDatabaseConnectionOk() {
     console.log(`Checking database connection...`);
     try {
@@ -30,15 +30,18 @@ async function assertDatabaseConnectionOk() {
 
 
 setTimeout(async () => {
-    console.log('assert connection to db');
+    console.log('antes del sync');
     await assertDatabaseConnectionOk();
-}, 100);
+    //await sequelize.sync({ force: true });
+}, 1000);
 // Create the node server with the service handler
 const server = createServer(async function (
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage> & { req: IncomingMessage }
 ) {
     const httpRequest = convertRequest(req);
+    //TODO env for tracer
+    //const tracer = trace.getTracer('order-fullfilment-server', '0.1.0');
 
     // Call the service handler, which will route the request to the GreetingService
     // implementation and then serialize the response to an HttpResponse.

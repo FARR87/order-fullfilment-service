@@ -1,6 +1,5 @@
 'use strict';
 import { DataTypes } from 'sequelize'
-import { default as Order } from 'order.js'
 module.exports = (sequelize) => {
     sequelize.define('OrderItem', {
 
@@ -8,4 +7,4 @@ module.exports = (sequelize) => {
         quantity: { type: DataTypes.INTEGER, DefaultValue: 1, allowNull: false },
         unitPrice: { type: DataTypes.INTEGER, DefaultValue: 1, allowNull: false },
     });
-};
+}

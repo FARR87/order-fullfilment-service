@@ -1,6 +1,5 @@
 'use strict';
 import { DataTypes } from 'sequelize'
-import { default as Order } from 'order.js'
 module.exports = (sequelize) => {
     sequelize.define('OutboxEvents', {
 

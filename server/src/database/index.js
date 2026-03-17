@@ -1,5 +1,4 @@
-const { Sequelize } = require('sequelize');
-const { applyExtraSetup } = require('./extra-setup');
+const { Sequelize, DataTypes } = require('sequelize');
 
 // In a real app, you should keep the database connection URL as an environment variable.
 // But for this example, we will just use a local SQLite database.
@@ -11,19 +10,33 @@ const sequelize = new Sequelize({
   benchmark: true
 });
 
-const modelDefiners = [
-  require('./models/order'),
-  require('./models/orderItem'),
-  require('./models/outboxEvent'),
-];
-
+const Order = sequelize.define('Order', {
+  orderId: {
+    type: DataTypes.UUID, primaryKey: true, allowNull: false, defaultValue: DataTypes.UUIDV4
+  },
+  customerId: { type: DataTypes.STRING, allowNull: false },
+  createdAt: {
+    allowNull: false,
+    type: DataTypes.DATE
+  },
+  orderStatus: DataTypes.ENUM('PENDING', 'FULLFILLED', 'BACKORDERED')
+})
 // We define all models according to their files.
-for (const modelDefiner of modelDefiners) {
-  modelDefiner(sequelize);
-}
+const OrderItem = sequelize.define('OrderItem', {
+  sku: { type: DataTypes.STRING, allowNull: false },
+  quantity: { type: DataTypes.INTEGER, DefaultValue: 1, allowNull: false },
+  unitPrice: { type: DataTypes.INTEGER, DefaultValue: 1, allowNull: false },
+});
+const OutboxEvents = sequelize.define('OutboxEvents', {
 
+  aggregateId: { type: DataTypes.UUIDV4, allowNull: false },
+  eventType: { type: DataTypes.STRING, DefaultValue: "OrderCreated", allowNull: false },
+  createdAt: { type: DataTypes.DATE, allowNull: false },
+  processed: { type: DataTypes.BOOLEAN, default: false }
+})
+
+Order.hasMany(OrderItem);
+Order.belongsTo(Order);
 // We execute any extra setup after the models are defined, such as adding associations.
-applyExtraSetup(sequelize);
-
 // We export the sequelize connection instance to be used around our app.
-module.exports = sequelize;
+module.exports = { sequelize, models: [Order, OrderItem, OutboxEvents] };

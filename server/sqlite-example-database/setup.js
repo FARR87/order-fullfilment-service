@@ -1,9 +1,10 @@
-const sequelize = require('../sequelize');
+'use strict'
+import { default as sequelize } from "../se";
 //const { pickRandom, randomDate } = require('./helpers/random');
 
 async function reset() {
     console.log('Will rewrite the SQLite example database, adding some dummy data.');
-
+    await sequelize.authenticate();
     await sequelize.sync({ force: true });
 
     console.log('Done!');
