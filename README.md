@@ -34,8 +34,7 @@ The architecture taken is a basic monolith with an in memory queue for event pro
 
 ## Run the project
 
-    $make run-server
-
+    $make dev-server
 
 ## Todo
 - properly configure the instrumentation to send traces to jaeger running locally and metrics to prometheus
