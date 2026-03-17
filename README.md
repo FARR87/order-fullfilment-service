@@ -22,7 +22,7 @@ Most of the benefits gained by using this tool can be replicated by following an
 to generate interfaces in different languages,protocols and data serialization OPENAPI is only for http and text smithy facilitates generation and enforcement of other protocols like gRPC and serializing with ProtocolBuffers or datastreaming which are very useful in a Service Oriented architecture to for internal service Comunication.
 
 Another downside is that the interfaces generated are desigend to work with nodes native http package  rather than facilitating mounts to other frameworks.
-The code architecture suffered because of it, though with more time that would aldo be manageable, smithy allows you to build your own codegen translators.
+The code architecture is not as clean, though with more time that would aldo be manageable, smithy allows you to build your own codegen translators.
 
 Check [smithy models used in this project] (/smithy/model/main.smithy)
 
