@@ -51,7 +51,7 @@ const server = createServer(async function (
     return writeResponse(httpResponse, res);
 });
 
-const port = process.env.SERVICE_PORT
+const port = process.env.SERVICE_PORT || 3001;
 server.listen(port);
 console.log(`Started server on port ${port}...  for service:${serviceName}`);
 
