@@ -5,3 +5,14 @@ clean: ## Clean all build artifacts of this project
 	@echo Cleaning build Directories...
 	rm -rf build/ */build/ */dist */node_modules client/sdk server/ssdk app/.next server/yarn.lock
 	@echo Cleaning complete.
+
+reset: clean ## Reset the project to its completed state
+	@echo Resetting...
+	git reset --hard HEAD
+	@echo Done.
+
+
+build-smithy: ## Build the smithy model and code-generate the client and server
+	@echo Building smithy models...
+	cd smithy; smithy format model/; smithy build
+	@echo Finished building models.
