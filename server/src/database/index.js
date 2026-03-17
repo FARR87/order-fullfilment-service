@@ -12,9 +12,9 @@ const sequelize = new Sequelize({
 });
 
 const modelDefiners = [
-  //require('./models/orders.js'),
-  // Add more models here...
-  // require('./models/item'),
+  require('./models/order'),
+  require('./models/orderItem'),
+  require('./models/outboxEvent'),
 ];
 
 // We define all models according to their files.
@@ -23,7 +23,7 @@ for (const modelDefiner of modelDefiners) {
 }
 
 // We execute any extra setup after the models are defined, such as adding associations.
-//applyExtraSetup(sequelize);
+applyExtraSetup(sequelize);
 
 // We export the sequelize connection instance to be used around our app.
 module.exports = sequelize;
