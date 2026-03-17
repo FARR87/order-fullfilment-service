@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "@aws-smithy/server-node": "^1.0.0-alpha.10",
-        "@com.example/coffee-shop-server": "link:ssdk",
+        "@com.example/orders-fullfilment-server": "link:ssdk",
         "@opentelemetry/api": "^1.9.0",
         "@opentelemetry/auto-instrumentations-node": "^0.71.0",
         "@opentelemetry/sdk-metrics": "^2.6.0",

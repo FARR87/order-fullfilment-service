@@ -1,6 +1,6 @@
 $version: "2"
 
-namespace com.fullfilment
+namespace com.example
 
 use aws.protocols#restJson1
 use smithy.framework#ValidationException

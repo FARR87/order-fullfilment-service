@@ -1,6 +1,6 @@
 $version: "2.0"
 
-namespace com.fullfilment
+namespace com.example
 
 enum OrderStatus {
     PENDING
