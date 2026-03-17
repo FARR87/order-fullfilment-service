@@ -11,7 +11,7 @@
         ]
     },
     "plugins": {
-        "ssdk-codegen": {
+        "typescript-ssdk-codegen": {
             "package" : "@com.example/orders-fullfilment-server",
             "packageVersion": "0.0.1"
         },"typescript-client-codegen": {
