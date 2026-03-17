@@ -56,8 +56,12 @@ operation CreateOrder {
 }
 
 @readonly
+@paginated(items: "orders", pageSize: "pageSize")
 @http(method: "GET", uri: "/orders")
-operation ListOrders {}
+operation ListOrders {
+    input: ListOrdersInput
+    output: ListOrdersOutput
+}
 
 @readonly
 @http(method: "GET", uri: "/order/{orderId}")
@@ -112,9 +116,41 @@ structure Item {
     quantity: Integer
 }
 
+@input
+structure ListOrdersInput {
+    @httpQuery("status")
+    status: String
+
+    @httpQuery("clientId")
+    clientId: String
+
+    @httpQuery("date")
+    date: Timestamp
+
+    @httpHeader("pageToken")
+    nextToken: String
+
+    @httpQuery("pageSize")
+    pageSize: Integer
+}
+
+@output
+structure ListOrdersOutput {
+    nextToken: String
+
+    @required
+    orders: orderItems
+}
+
 list orderItems {
     member: orderItem
 }
+
+list OrdersList {
+    member: OrdersListItem
+}
+
+structure OrdersListItem {}
 
 @httpError(404)
 @error("client")
