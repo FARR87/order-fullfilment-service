@@ -2,7 +2,6 @@ import { getFullfilmentServiceHandler } from "@com.example/orders-fullfilment-se
 import { IncomingMessage, ServerResponse, createServer } from "http";
 import { convertRequest, writeResponse } from "@aws-smithy/server-node";
 import { OrderFullFilment } from "./OrderFullfilment";
-import { default as Orders } from "./database/models/order"
 import dotenv from "dotenv";
 import { default as sequelize } from "./database"
 //get EnvVars
@@ -17,7 +16,7 @@ const ctx = { orders: new Map(), queue: [] };
 
 
 
-
+//DB integration Test
 async function assertDatabaseConnectionOk() {
     console.log(`Checking database connection...`);
     try {
@@ -28,12 +27,17 @@ async function assertDatabaseConnectionOk() {
         process.exit(1);
     }
 }
+
+
+setTimeout(async () => {
+    console.log('assert connection to db');
+    await assertDatabaseConnectionOk();
+}, 100);
 // Create the node server with the service handler
 const server = createServer(async function (
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage> & { req: IncomingMessage }
 ) {
-    await assertDatabaseConnectionOk();
     const httpRequest = convertRequest(req);
 
     // Call the service handler, which will route the request to the GreetingService
