@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Order.init({
-    orderId: DataTypes.UUID,
-    customerId: DataTypes.STRING,
-    createdAt: DataTypes.STRING
+    orderId: {
+      type: DataTypes.UUID, primaryKey: true, allowNull: false,
+    },
+    customerId: { type: DataTypes.STRING, allowNull: false },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE
+    },
+    orderStatus: DataTypes.ENUM('PENDING', 'FULLFILLED', 'BACKORDERED')
   }, {
     sequelize,
     modelName: 'Order',
