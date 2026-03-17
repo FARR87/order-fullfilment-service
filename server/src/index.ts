@@ -4,7 +4,7 @@ import { convertRequest, writeResponse } from "@aws-smithy/server-node";
 import { OrderFullFilment } from "./OrderFullfilment";
 import { default as Orders } from "./database/models/order"
 import dotenv from "dotenv";
-import { default as db } from "./database"
+import { default as sequelize } from "./database"
 //get EnvVars
 dotenv.config();
 const serviceName = process.env.SERVICE_NAME
@@ -15,11 +15,25 @@ const serviceHandler = getFullfilmentServiceHandler(OrderFullFilmentService);
 // The coffee shop context object
 const ctx = { orders: new Map(), queue: [] };
 
+
+
+
+async function assertDatabaseConnectionOk() {
+    console.log(`Checking database connection...`);
+    try {
+        await sequelize.authenticate();
+        console.log('Database connection OK!');
+    } catch (error) {
+        console.log('Unable to connect to the database:');
+        process.exit(1);
+    }
+}
 // Create the node server with the service handler
 const server = createServer(async function (
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage> & { req: IncomingMessage }
 ) {
+    await assertDatabaseConnectionOk();
     const httpRequest = convertRequest(req);
 
     // Call the service handler, which will route the request to the GreetingService

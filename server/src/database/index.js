@@ -6,13 +6,13 @@ const { applyExtraSetup } = require('./extra-setup');
 // const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: 'sqlite-example-database/example-db.sqlite',
+  storage: 'sqlite-example-database/ordersFullfilment.sqlite',
   logQueryParameters: true,
   benchmark: true
 });
 
 const modelDefiners = [
-  require('./models/orders.js'),
+  //require('./models/orders.js'),
   // Add more models here...
   // require('./models/item'),
 ];
@@ -23,7 +23,7 @@ for (const modelDefiner of modelDefiners) {
 }
 
 // We execute any extra setup after the models are defined, such as adding associations.
-applyExtraSetup(sequelize);
+//applyExtraSetup(sequelize);
 
 // We export the sequelize connection instance to be used around our app.
 module.exports = sequelize;
