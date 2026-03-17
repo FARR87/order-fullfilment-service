@@ -3,7 +3,7 @@ help:  ## Display this help
 
 clean: ## Clean all build artifacts of this project
 	@echo Cleaning build Directories...
-	rm -rf build/ */build/ */dist */node_modules client/sdk server/ssdk app/.next server/yarn.lock
+	rm -rf build/ */build/ */dist */node_modules client/sdk server/ssdk server/yarn.lock
 	@echo Cleaning complete.
 
 reset: clean ## Reset the project to its completed state
@@ -27,7 +27,7 @@ build-server: build-ssdk ## Build the server implementation
 	@echo Building server...
 	cd server; yarn && yarn build; yarn install
 	@echo Finished building server.
-	
+
 build-client: build-smithy ## Set up and build the generated client
 	@echo Building client...
 	cd client; ln -fs ../smithy/build/smithy/source/typescript-client-codegen sdk
