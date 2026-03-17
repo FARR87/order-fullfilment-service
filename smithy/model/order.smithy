@@ -16,6 +16,7 @@ resource Order {
         customerId: CustomerId
         createdAt: CreatedAt
         items: Items
+        orderStatus: OrderStatus
     }
     put: CreateOrder
     read: GetOrder
@@ -44,6 +45,9 @@ operation CreateOrder {
         $customerId
 
         @required
+        $orderStatus
+
+        @required
         $createdAt
 
         @required
@@ -70,6 +74,9 @@ operation GetOrder {
 
         @required
         $customerId
+
+        @required
+        $orderStatus
 
         @required
         $createdAt
