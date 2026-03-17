@@ -6,9 +6,11 @@ Use make to build project, see all the options by running:
 
     $ make help
 ### Pre-requisites
-npm 11.11.0
-yarn 1.22.22
-sqlite3 3.53
+ npm 11.11.0 
+ 
+ yarn 1.22.22 
+ 
+ sqlite3 3.53
 
 ## Design using [smithy](https://smithy.io/)
 
