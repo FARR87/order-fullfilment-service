@@ -16,3 +16,9 @@ build-smithy: ## Build the smithy model and code-generate the client and server
 	@echo Building smithy models...
 	cd smithy; smithy format model/; smithy build
 	@echo Finished building models.
+
+build-ssdk: build-smithy ## Set up and build the generated server-sdk (`ssdk`)
+	@echo Building server-sdk...
+	cd server; ln -fs ../smithy/build/smithy/source/typescript-ssdk-codegen ssdk
+	cd server/ssdk; yarn && yarn build
+	@echo Finished building server-sdk.

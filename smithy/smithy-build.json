@@ -11,7 +11,7 @@
         ]
     },
     "plugins": {
-        "ssdk-codegent": {
+        "ssdk-codegen": {
             "package" : "@com.example/orders-server",
             "packageVersion": "0.0.1"
         }
