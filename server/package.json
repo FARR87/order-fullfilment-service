@@ -7,6 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc",
         "start": "yarn build && node dist/index.js",
+        "setup-db": "node sqlite-database/setup.js",
         "dev": "tsx watch src/index.ts"
     },
     "keywords": [],

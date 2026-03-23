@@ -1,6 +1,6 @@
 {
   "production": {
-    "database": "sqlite-example-database/ordersFullfilment.sqlite",
+    "database": "sqlite-database/ordersFullfilment.sqlite",
     "dialect": "sqlite"
   }
 }
