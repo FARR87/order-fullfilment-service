@@ -17,7 +17,8 @@ const Order = sequelize.define('Order', {
   customerId: { type: DataTypes.STRING, allowNull: false },
   createdAt: {
     allowNull: false,
-    type: DataTypes.DATE
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
   },
   orderStatus: DataTypes.ENUM('PENDING', 'FULLFILLED', 'BACKORDERED')
 })
@@ -26,12 +27,13 @@ const OrderItem = sequelize.define('OrderItem', {
   sku: { type: DataTypes.STRING, allowNull: false },
   quantity: { type: DataTypes.INTEGER, DefaultValue: 1, allowNull: false },
   unitPrice: { type: DataTypes.INTEGER, DefaultValue: 1, allowNull: false },
+  defaultValue: DataTypes.NOW,
 });
 const OutboxEvents = sequelize.define('OutboxEvents', {
 
   aggregateId: { type: DataTypes.UUIDV4, allowNull: false },
   eventType: { type: DataTypes.STRING, DefaultValue: "OrderCreated", allowNull: false },
-  createdAt: { type: DataTypes.DATE, allowNull: false },
+  createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW },
   processed: { type: DataTypes.BOOLEAN, default: false }
 })
 
