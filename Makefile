@@ -23,7 +23,12 @@ build-ssdk: build-smithy ## Set up and build the generated server-sdk (`ssdk`)
 	cd server/ssdk; yarn && yarn build
 	@echo Finished building server-sdk.
 
-build-server: build-ssdk ## Build the server implementation
+build-db: build-ssdk ## Create and seed database
+	@echo Creating database
+	cd server;yarn setup-db
+	@echo Finished Creating database
+
+build-server: build-db ## Build the server implementation
 	@echo Building server...
 	cd server; yarn && yarn build; yarn install
 	@echo Finished building server.
@@ -34,7 +39,7 @@ build-client: build-smithy ## Set up and build the generated client
 	cd client/sdk; yarn && yarn build
 	@echo Finished building client
 
-build: build-server build-client ##Build server and client 
+build: build-server build-client ## Build server and client 
 
 dev-server: build-ssdk ## Run the server in development-mode
 	cd server; yarn && yarn dev
