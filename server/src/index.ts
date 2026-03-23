@@ -2,8 +2,8 @@ import { getFullfilmentServiceHandler } from "@com.example/orders-fullfilment-se
 import { IncomingMessage, ServerResponse, createServer } from "http";
 import { convertRequest, writeResponse } from "@aws-smithy/server-node";
 import { OrderFullFilment } from "./OrderFullfilment";
-import dotenv from "dotenv";
-import { sequelize, models } from "./database"
+const dotenv = require("dotenv");
+const sequelize = require('./database');
 //get EnvVars
 dotenv.config();
 const serviceName = process.env.SERVICE_NAME
@@ -32,7 +32,6 @@ async function assertDatabaseConnectionOk() {
 setTimeout(async () => {
     console.log('antes del sync');
     await assertDatabaseConnectionOk();
-    //await sequelize.sync({ force: true });
 }, 1000);
 // Create the node server with the service handler
 const server = createServer(async function (

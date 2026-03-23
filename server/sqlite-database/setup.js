@@ -1,5 +1,5 @@
 'use strict'
-const { sequelize, models } = require("../src/database");
+const sequelize = require("../src/database");
 //const { pickRandom, randomDate } = require('./helpers/random');
 
 async function reset() {

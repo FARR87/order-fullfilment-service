@@ -30,7 +30,7 @@ build-db: build-ssdk ## Create and seed database
 
 build-server: build-db ## Build the server implementation
 	@echo Building server...
-	cd server; yarn && yarn build; yarn install
+	## cd server; yarn && yarn build; yarn install
 	@echo Finished building server.
 
 build-client: build-smithy ## Set up and build the generated client
